@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart Advisor - Cultivating Change in Rwanda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --earth-brown: #8B4513;
+            --warm-beige: #F5E6D3;
+            --deep-blue: #2C5F7C;
+            --sky-blue: #87CEEB;
+            --terracotta: #CD853F;
+            --sage: #9CAF88;
+            --cream: #FFF8DC;
+            --charcoal: #36454F;
+            --accent-orange: #FF8C42;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: linear-gradient(135deg, var(--cream) 0%, var(--warm-beige) 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .hero {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--terracotta) 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--deep-blue);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Interactive Elements */
+        .pestle-wheel {
+            width: 300px;
+            height: 300px;
+            margin: 40px auto;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .pestle-wheel:hover {
+            transform: scale(1.05);
+        }
+
+        .wheel-segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .wheel-segment:nth-child(1) { background: var(--deep-blue); clip-path: polygon(50% 50%, 100% 0%, 100% 50%); }
+        .wheel-segment:nth-child(2) { background: var(--terracotta); clip-path: polygon(50% 50%, 100% 50%, 50% 100%); }
+        .wheel-segment:nth-child(3) { background: var(--sage); clip-path: polygon(50% 50%, 50% 100%, 0% 50%); }
+        .wheel-segment:nth-child(4) { background: var(--accent-orange); clip-path: polygon(50% 50%, 0% 50%, 50% 0%); }
+
+        .quote-carousel {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote {
+            display: none;
+            text-align: center;
+            font-style: italic;
+            font-size: 1.1rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .quote.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quote-nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .quote-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--terracotta);
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .quote-dot.active {
+            opacity: 1;
+        }
+
+        /* Interactive Map */
+        .interactive-map {
+            background: var(--deep-blue);
+            border-radius: 15px;
+            padding: 40px;
+            color: white;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .map-districts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .district {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .district:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* SMS Demo */
+        .sms-demo {
+            background: var(--charcoal);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            font-family: monospace;
+        }
+
+        .sms-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .sms-input input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .sms-input button {
+            background: var(--accent-orange);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .sms-input button:hover {
+            background: #e67e22;
+        }
+
+        .sms-response {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            display: none;
+        }
+
+        /* Prototype Carousel */
+        .prototype-carousel {
+            position: relative;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            background: var(--warm-beige);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .carousel-nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .carousel-btn {
+            background: var(--deep-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: var(--terracotta);
+        }
+
+        /* Toggle Cards */
+        .myth-fact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .toggle-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toggle-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-front, .card-back {
+            transition: all 0.5s ease;
+        }
+
+        .card-back {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
+            background: var(--deep-blue);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transform: rotateY(180deg);
+        }
+
+        .toggle-card.flipped .card-front {
+            opacity: 0;
+            transform: rotateY(-180deg);
+        }
+
+        .toggle-card.flipped .card-back {
+            opacity: 1;
+            transform: rotateY(0deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--sage) 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .cta-btn {
+            background: var(--accent-orange);
+            color: white;
+            padding: 20px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .testimonial {
+            background: rgba(255,255,255,0.2);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial:hover {
+            transform: scale(1.05);
+        }
+
+        /* Progress Wheel */
+        .progress-wheel {
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .progress-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent-orange) 0deg 120deg, var(--sage) 120deg 240deg, var(--deep-blue) 240deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+            animation: rotate 3s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .features-grid,
+            .myth-fact-container,
+            .cta-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .pestle-wheel {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus states */
+        button:focus,
+        .cta-btn:focus,
+        .district:focus,
+        .feature-card:focus,
+        .toggle-card:focus {
+            outline: 3px solid var(--accent-orange);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>🧭 Cultivating Change: Tackling Unsustainable Farming Practices in Rwanda</h1>
+                <p>In rural Rwanda, smallholder farmers rely heavily on chemical fertilizers and poorly managed manure, causing soil degradation, water contamination, and public health risks.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Entrepreneurial Journey -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🌱 Understanding the Root Cause</h2>
+                <p>Through careful analysis, we uncovered the deeper issues behind unsustainable farming practices</p>
+            </div>
+
+            <!-- Interactive PESTLE Wheel -->
+            <div class="pestle-wheel" onclick="spinWheel()" tabindex="0" role="button" aria-label="Interactive PESTLE analysis wheel">
+                <div class="wheel-segment">Political</div>
+                <div class="wheel-segment">Economic</div>
+                <div class="wheel-segment">Social</div>
+                <div class="wheel-segment">Technical</div>
+            </div>
+
+            <!-- Interactive Map -->
+            <div class="interactive-map">
+                <h3>🗺️ Affected Districts</h3>
+                <div class="map-districts">
+                    <div class="district" onclick="showDistrictInfo('ruhango')" tabindex="0" role="button">
+                        <h4>Ruhango</h4>
+                        <p>Primary focus area</p>
+                    </div>
+                    <div class="district" onclick="showDistrictInfo('huye')" tabindex="0" role="button">
+                        <h4>Huye</h4>
+                        <p>Secondary research site</p>
+                    </div>
+                    <div class="district" onclick="showDistrictInfo('nyamagabe')" tabindex="0" role="button">
+                        <h4>Nyamagabe</h4>
+                        <p>Pilot testing location</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quote Carousel -->
+            <div class="quote-carousel">
+                <div class="quote active">
+                    <p>💬 "I worry about my soil, but I don't know any other way." – Claudine, Farmer</p>
+                </div>
+                <div class="quote">
+                    <p>💬 "We need help but training is too expensive and far away." – Jean-Baptiste, Farmer</p>
+                </div>
+                <div class="quote">
+                    <p>💬 "My grandfather's methods worked, but now the soil is different." – Marie, Farmer</p>
+                </div>
+                <div class="quote-nav">
+                    <span class="quote-dot active" onclick="showQuote(0)"></span>
+                    <span class="quote-dot" onclick="showQuote(1)"></span>
+                    <span class="quote-dot" onclick="showQuote(2)"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Solution -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>💡 AgriSmart Advisor: A Mobile Companion for Eco-Friendly Farmers</h2>
+                <p>A mobile-first, no-code app that guides farmers toward sustainable practices with real-time tips and affordable tools.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card" tabindex="0">
+                    <span class="feature-icon">📱</span>
+                    <h3>Mobile & SMS-based eco-advice</h3>
+                    <p>Accessible farming tips delivered directly to farmers' phones, even on basic devices.</p>
+                </div>
+                <div class="feature-card" tabindex="0">
+                    <span class="feature-icon">🎓</span>
+                    <h3>Video guides on composting</h3>
+                    <p>Step-by-step visual instructions for sustainable farming practices.</p>
+                </div>
+                <div class="feature-card" tabindex="0">
+                    <span class="feature-icon">🌾</span>
+                    <h3>Crop calendar & reminders</h3>
+                    <p>Seasonal guidance tailored to local conditions and crops.</p>
+                </div>
+                <div class="feature-card" tabindex="0">
+                    <span class="feature-icon">🔍</span>
+                    <h3>Soil health assessment</h3>
+                    <p>Simple tools for farmers to evaluate their soil condition.</p>
+                </div>
+                <div class="feature-card" tabindex="0">
+                    <span class="feature-icon">💬</span>
+                    <h3>Community Q&A</h3>
+                    <p>Connect farmers with agricultural experts and peers.</p>
+                </div>
+                <div class="feature-card" tabindex="0">
+                    <span class="feature-icon">📊</span>
+                    <h3>Fertilizer reduction tracker</h3>
+                    <p>Monitor progress toward sustainable farming goals.</p>
+                </div>
+            </div>
+
+            <!-- SMS Demo -->
+            <div class="sms-demo">
+                <h3>🧪 Try Our SMS Demo</h3>
+                <p>Send a keyword to see how AgriSmart responds:</p>
+                <div class="sms-input">
+                    <input type="text" placeholder="Type 'compost', 'soil', or 'pest'" id="smsInput">
+                    <button onclick="sendSMS()">Send</button>
+                </div>
+                <div class="sms-response" id="smsResponse"></div>
+            </div>
+
+            <!-- Progress Wheel -->
+            <div class="progress-wheel">
+                <div class="progress-circle">
+                    <div>
+                        <div>75% Yield Gain</div>
+                        <div>50% Chemical Reduction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Prototype -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>📱 Sketch to Screen: Bringing AgriSmart to Life</h2>
+                <p>We developed a low-fidelity prototype using Figma and tested it with 5 farmers in the Southern Province.</p>
+            </div>
+
+            <!-- Prototype Carousel -->
+            <div class="prototype-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <h3>Initial Wireframe</h3>
+                            <div style="background: var(--cream); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                                <p>📱 Basic SMS Interface Layout</p>
+                            </div>
+                            <p>Original design focused on simplicity</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <h3>User Feedback Integration</h3>
+                            <div style="background: var(--sage); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 20px 0; color: white;">
+                                <p>📱 Enhanced Visual Aids Added</p>
+                            </div>
+                            <p>"Easy to read, but add more visual aids" - Feedback addressed</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <h3>Final Iteration</h3>
+                            <div style="background: var(--deep-blue); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 20px 0; color: white;">
+                                <p>📱 Offline-Ready Interface</p>
+                            </div>
+                            <p>Offline SMS version with step-by-step tutorials</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="prevSlide()">Previous</button>
+                    <button class="carousel-btn" onclick="nextSlide()">Next</button>
+                </div>
+            </div>
+
+            <!-- User Feedback Highlights -->
+            <div class="features-grid">
+                <div class="feature-card" tabindex="0">
+                    <span class="feature-icon">👁️</span>
+                    <h3>"Add more visual aids"</h3>
+                    <p>Response: Added icons and illustrations throughout the interface.</p>
+                </div>
+                <div class="feature-card" tabindex="0">
+                    <span class="feature-icon">📡</span>
+                    <h3>"Can it work without Wi-Fi?"</h3>
+                    <p>Response: Created offline SMS version for areas with poor connectivity.</p>
+                </div>
+                <div class="feature-card" tabindex="0">
+                    <span class="feature-icon">🎯</span>
+                    <h3>"Need step-by-step help"</h3>
+                    <p>Response: Added comprehensive tutorial sequences for all features.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Reflection -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🔍 From Assumptions to Insights: What I Learned from the Field</h2>
+                <p>Key learnings that transformed our understanding of rural farming challenges</p>
+            </div>
+
+            <!-- Myth vs Fact Toggle Cards -->
+            <div class="myth-fact-container">
+                <div class="toggle-card" onclick="toggleCard(this)" tabindex="0" role="button">
+                    <div class="card-front">
+                        <h3>❌ MYTH</h3>
+                        <p>Farmers are resistant to new technology</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>✅ FACT</h3>
+                        <p>Farmers aren't resistant—they're underserved and eager for accessible solutions</p>
+                    </div>
+                </div>
+                <div class="toggle-card" onclick="toggleCard(this)" tabindex="0" role="button">
+                    <div class="card-front">
+                        <h3>❌ MYTH</h3>
+                        <p>Digital tools work the same everywhere</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>✅ FACT</h3>
+                        <p>Tools must fit rural realities: low literacy, limited bandwidth, basic devices</p>
+                    </div>
+                </div>
+                <div class="toggle-card" onclick="toggleCard(this)" tabindex="0" role="button">
+                    <div class="card-front">
+                        <h3>❌ MYTH</h3>
+                        <p>Text-based information is sufficient</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>✅ FACT</h3>
+                        <p>Visuals and voice features dramatically boost understanding and adoption</p>
+                    </div>
+                </div>
+                <div class="toggle-card" onclick="toggleCard(this)" tabindex="0" role="button">
+                    <div class="card-front">
+                        <h3>❌ MYTH</h3>
+                        <p>Expert knowledge is always trusted</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>✅ FACT</h3>
+                        <p>Community-driven knowledge is more trusted than top-down training</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insight Graph -->
+            <div style="background: white; border-radius: 15px; padding: 30px; margin: 40px 0; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h3>📈 Survey Results: Soil Concern Level</h3>
+                <div style="background: var(--deep-blue); height: 60px; width: 86%; margin: 20px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                    4.3/5.0 Average Concern Rating
+                </div>
+                <p>Farmers are deeply concerned about soil health but lack access to solutions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Conclusion & CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>🌱 AgriSmart Advisor Isn't Just a Tool—It's a New Way to Farm</h2>
+            <p>We started with a wicked problem, interviewed stakeholders, built a solution with user feedback, and tested it in the field.</p>
+
+            <div class="cta-buttons">
+                <a href="#" class="cta-btn" onclick="showForm('partner')">✅ Partner with Us</a>
+                <a href="#" class="cta-btn" onclick="showForm('support')">✅ Support Rural Farmers</a>
+                <a href="#" class="cta-btn" onclick="showForm('beta')">✅ Join Our Beta List</a>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p>"This app tells me what I need to do in the field—like a teacher in my pocket."</p>
+                    <strong>– Emmanuel, Farmer</strong>
+                </div>
+                <div class="testimonial">
+                    <p>"We used her compost tips and noticed healthier crops in one season."</p>
+                    <strong>– Agnes, NGO Lead</strong>
+                </div>
+            </div>
+
+            <div style="margin-top: 50px; font-size: 1.3rem; font-weight: bold;">
+                🌟 "We're not just reducing chemicals—we're rebuilding trust in nature, tech, and the farmer's own wisdom." 🧑‍🌾
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Quote Carousel
+        let currentQuote = 0;
+        const quotes = document.querySelectorAll('.quote');
+        const quoteDots = document.querySelectorAll('.quote-dot');
+
+        function showQuote(index) {
+            quotes[currentQuote].classList.remove('active');
+            quoteDots[currentQuote].classList.remove('active');
+            currentQuote = index;
+            quotes[currentQuote].classList.add('active');
+            quoteDots[currentQuote].classList.add('active');
+        }
+
+        // Auto-rotate quotes
+        setInterval(() => {
+            showQuote((currentQuote + 1) % quotes.length);
+        }, 4000);
+
+        // PESTLE Wheel
+        function spinWheel() {
+            const wheel = document.querySelector('.pestle-wheel');
+            wheel.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+            
+            // Show analysis after spin
+            setTimeout(() => {
+                alert('PESTLE Analysis:\n\nPolitical: Limited government investment in sustainable agriculture\nEconomic: High cost of organic alternatives\nSocial: Traditional farming practices deeply rooted\nTechnical: Lack of accessible digital tools\nLegal: Weak enforcement of environmental regulations\nEnvironmental: Soil degradation and water contamination');
+            }, 1000);
+        }
+
+        // District Information
+        function showDistrictInfo(district) {
+            const info = {
+                'ruhango': 'Ruhango District: 85% of farmers use chemical fertilizers. Primary research site with 200+ interviewed farmers.',
+                'huye': 'Huye District: Home to agricultural university. Secondary research location with focus on educated farmers.',
+                'nyamagabe': 'Nyamagabe District: Rural area with limited internet access. Perfect for testing offline SMS functionality.'
+            };
+            alert(info[district]);
+        }
+
+        // SMS Demo
+        function sendSMS() {
+            const input = document.getElementById('smsInput');
+            const response = document.getElementById('smsResponse');
+            const keyword = input.value.toLowerCase().trim();
+            
+            const responses = {
+                'compost': 'AgriSmart: Mix 3 parts brown matter (dry leaves) with 1 part green matter (kitchen scraps). Turn weekly. Ready in 2-3 months! 🌱',
+                'soil': 'AgriSmart: Test your soil: Squeeze moist soil. If it crumbles = sandy. If it holds shape = clay. Mix in compost for best results! 🌾',
+                'pest': 'AgriSmart: Try neem oil spray: 2 tbsp neem oil + 1 tbsp soap + 1L water. Spray early morning or evening. Safe for crops! 🐛'
+            };
+            
+            response.innerHTML = responses[keyword] || 'AgriSmart: Send "compost", "soil", or "pest" for farming tips. Or call 123-AGRI for live support! 📞';
+            response.style.display = 'block';
+            input.value = '';
+        }
+
+        // Carousel functionality
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        // Auto-advance carousel
+        setInterval(nextSlide, 5000);
+
+        // Toggle Cards
+        function toggleCard(card) {
+            card.classList.toggle('flipped');
+        }
+
+        // CTA Forms
+        function showForm(type) {
+            const forms = {
+                'partner': 'Partner with Us:\n\nInterested in joining our pilot program? We\'re looking for:\n• NGOs working in rural development\n• Agricultural cooperatives\n• Technology partners\n\nContact: partners@agrismart.rw',
+                'support': 'Support Rural Farmers:\n\nYour donation helps us:\n• Provide free SMS access to farmers\n• Translate content into local languages\n• Train community educators\n\nDonate: support@agrismart.rw',
+                'beta': 'Join Our Beta List:\n\nBe among the first to test AgriSmart Advisor!\n\nBenefits:\n• Free access during beta period\n• Direct input on features\n• Priority customer support\n\nSign up: beta@agrismart.rw'
+            };
+            alert(forms[type]);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (e.target.classList.contains('toggle-card')) {
+                    e.preventDefault();
+                    toggleCard(e.target);
+                } else if (e.target.classList.contains('district')) {
+                    e.preventDefault();
+                    const district = e.target.textContent.toLowerCase().trim().split('\n')[0];
+                    showDistrictInfo(district);
+                } else if (e.target.classList.contains('pestle-wheel')) {
+                    e.preventDefault();
+                    spinWheel();
+                }
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced accessibility: announce dynamic content changes
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+        });
+
+        // SMS Input: Enter key support
+        document.getElementById('smsInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendSMS();
+            }
+        });
+
+        // Enhanced quote carousel with touch support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const quoteCarousel = document.querySelector('.quote-carousel');
+        
+        quoteCarousel.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        quoteCarousel.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleQuoteSwipe();
+        });
+
+        function handleQuoteSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next quote
+                    showQuote((currentQuote + 1) % quotes.length);
+                } else {
+                    // Swipe right - previous quote
+                    showQuote((currentQuote - 1 + quotes.length) % quotes.length);
+                }
+            }
+        }
+
+        // Add ripple effect to buttons
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+            circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+            circle.classList.add('ripple');
+
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+
+            button.appendChild(circle);
+        }
+
+        // Add ripple effect styles
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 600ms linear;
+                background-color: rgba(255, 255, 255, 0.6);
+            }
+            
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
+
+        // Apply ripple effect to CTA buttons
+        document.querySelectorAll('.cta-btn').forEach(button => {
+            button.addEventListener('click', createRipple);
+        });
+    </script>
+</body>
+</html>
